@@ -47,7 +47,7 @@ export default {
    //to do list 만들기(list니까 array로 놓음)
    const todos = ref([
     {id:1, subject: 'chicken breast'},
-    {id: 2, subject: 'mango'}
+    {id: 2, subject: 'watermelon'}
    ]);
 
    const type = ref('text');
