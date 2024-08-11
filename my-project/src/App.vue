@@ -4,62 +4,43 @@
   <button @click="onToggle">Toggle</button>
   <div class="container">
     <h2>TO DO LIST</h2>
-    <TodoSimpleForm/>
+    <TodoSimpleForm @add-todo="addTodo"/>
 
       <!-- todos 리스트 출력 -->
       <!-- {{ todos }} -->
       <div v-if="!todos.length">
         추가된 To do가 없습니다
       </div>
-      <div
-        v-for="(t, index) in todos"
-        :key="t.id"
-        class="card mt-2">
-
-        <div class="card-body p-2 d-flex align-items-center">
-          <div class="form-check flex-grow-1">
-            <input 
-              class="form-check-input" 
-              type="checkbox"
-              v-model="t.completed"
-            >
-            <label 
-              class="form-check-label"
-              :class="{ todo: t.completed }"
-            >
-              {{ t.subject }}
-            </label>
-          </div>
-          <div>
-            <button 
-              class="btn btn-danger btn-sm"
-              @click="deleteTodo(index)"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
+      <TodoList 
+      :todos="todos" 
+      @toggle-todo="toggleTodo"
+      @delete-todo="deleteTodo"
+      />
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import TodoSimpleForm from './components/TodoSimpleForm.vue';
+import TodoList from './components/TodoList.vue';
 
 export default {
-  components: { TodoSimpleForm },
-  component: {
-    TodoSimpleForm
+  //components: { TodoSimpleForm },
+  components: {
+    TodoSimpleForm,
+    TodoList,
   },
   setup(){
-    //name 바꾸는 함수가 적용되기 위해서 ref를 사용
-   const todo = ref('');
    //toggole 선언
    const toggle = ref(false);
    //to do list 만들기(list니까 array로 놓음)
+
+   const toggleTodo = (index) => {
+    console.log(todos.value[index]);
+    todos.value[index].completed = !todos.value[index].completed;
+    console.log(todos.value[index]);
+  }
    const todos = ref([]);
-   const hasError = ref(false);
    const todoStyle = {
     textDecoration: 'line-through',
     color: 'gray'
@@ -69,22 +50,9 @@ export default {
     //   return 'Hello, ' + name;
     // };
 
-    const onSubmit = () => {
-      //form에서 리로딩하는 것을 막기 위한 것
-      //event.prevnetDefault();
-      //ref를 사용하면 name 뒤에 .value를 붙여야 한다
-      console.log(todo.value)
-      if(todo.value === ''){
-        hasError.value = true;
-      }else{
-          todos.value.push({
-          id: Date.now(),
-          subject: todo.value,
-          completed: false,   //체크박스를 위한 completed
-        });
-        hasError.value = false;
-        todo.value = '';
-      }
+    const addTodo = (todo) => {
+      console.log(todo);
+      todos.value.push(todo);
     };
 
     const onToggle = () =>{
@@ -102,14 +70,20 @@ export default {
       console.log('delete Todo')
     };
 
+    const count = ref(1);
+    const doubleCount = computed(() => {
+      return count.value*2;
+    });
+
     return{
-      todo,
       todos,
-      onSubmit,
+      addTodo,
       toggle,
+      toggleTodo,
       onToggle,
-      hasError,
       todoStyle,
+      count, 
+      doubleCount,
       deleteTodo,
     };
   }
