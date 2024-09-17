@@ -3,26 +3,42 @@
     <!-- Header -->
     <header class="header">
       <img src="@/assets/fridge.png" alt="Logo" class="logo" />
+      <div>
+        <a @click="goToAdd">
+          <img src="@/assets/add.png" alt="add" class="add"/>
+        </a>
+      </div>
+      <div>
+        <a @click.prevent="goToCart">          
+          <img src="@/assets/cart.png" alt="cart" class="cart"/>
+        </a>
+      </div>
       <div class="icons">
         <!-- 다국어설정 -->
-        <p>{{ $t('message.fridge') }}</p>
+        <!-- <p>{{ $t('message.fridge') }}</p> -->
         <select v-model="selectedLocale" v-on:change="changeLocale">
             <option value="" disabled>선택하세요</option>
             <option value="kr">한국어</option>
             <option value="en">영어</option>
         </select>
         <!-- shopping cart list-->
-        <a @click="goToCart">          
-          <img src="@/assets/cart.png" alt="cart" class="cart"/>
-        </a>
       </div>
     </header>
 
     <!-- Tabs -->
     <nav class="tabs">
-      <router-link to="/fridge" class="tab"><img src="@/assets/fridgeMenu.png" alt="fridgeMenu" class="menu"/></router-link>
-      <router-link to="/freezer" class="tab"><img src="@/assets/freezer.png" alt="freezer" class="menu"/></router-link>
-      <router-link to="/pantry" class="tab"><img src="@/assets/pantry.png" alt="pantry" class="menu"/></router-link>
+      <router-link to="/fridge" class="tab">
+        <img src="@/assets/fridgeMenu.png" alt="fridgeMenu" class="menu"/>
+        <p>{{ $t('message.fridge') }}</p>
+      </router-link>
+      <router-link to="/freezer" class="tab">
+        <img src="@/assets/freezer.png" alt="freezer" class="menu"/>
+        <p>{{ $t('message.freezer') }}</p>
+      </router-link>
+      <router-link to="/pantry" class="tab">
+        <img src="@/assets/pantry.png" alt="pantry" class="menu"/>
+        <p>{{ $t('message.pantry') }}</p>
+      </router-link>
     </nav>
 
     <!-- Main Content -->
@@ -35,6 +51,7 @@ import { ref, computed } from 'vue';
 import FridgeView from '@/views/FridgeView.vue';
 import FreezerView from './views/FreezerView.vue';
 import PantryView from './views/PantryView.vue';
+import AddView from '@/views/AddView.vue';
 import { useI18n } from 'vue-i18n'
 
 export default {
@@ -47,6 +64,10 @@ export default {
   methods: {
     goToCart() {
       this.$router.push('/cart'); // '/cart' 경로로 페이지 전환
+      },
+
+      goToAdd() {
+        this.$router.push('/add');
       }
     },
 
@@ -75,6 +96,12 @@ export default {
 
 <style scoped>
 /* 기본 스타일 추가 */
+
+#app{
+  font-family: "Dongle", sans-serif;
+  font-size: 15pt;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -84,6 +111,9 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.add{
+  height: 25px;
+}
 .cart{
   height: 25px;
 }

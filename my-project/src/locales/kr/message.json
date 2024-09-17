@@ -1,7 +1,8 @@
 {
     "fridge": "냉장고",
     "freezer": "냉동고",
-    "shoppingCart": "장바구니"
+    "shoppingCart": "장바구니",
+    "pantry": "팬트리"
 }
 
 

@@ -1,5 +1,6 @@
 <template>
     <div>
+      <h2>장바구니</h2>
       <div class="ingredients">
         <button
           v-for="item in items"
@@ -11,7 +12,7 @@
         </button>
       </div>
       <div class="cart">
-        <h2>장바구니</h2>
+        
         <ul>
           <li v-for="item in cart" :key="item.id">{{ item.name }}</li>
         </ul>

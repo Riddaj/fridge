@@ -3,6 +3,7 @@ import Fridge from '@/views/FridgeView.vue';
 import Freezer from '@/views/FreezerView.vue';
 import Pantry from '@/views/PantryView.vue';
 import Cart from '@/views/CartView.vue';
+import Add from '@/views/AddView.vue';
 
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/add',
+    name: 'Add',
+    component: Add
   }
 ];
 

@@ -1,7 +1,8 @@
 {
     "fridge": "fridge",
     "freezer": "freezer",
-    "shoppingCart": "shopping cart"
+    "shoppingCart": "shopping cart",
+    "pantry": "pantry"
 }
 
 

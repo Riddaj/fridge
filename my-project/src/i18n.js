@@ -26,8 +26,8 @@ for (const file of requireLang.keys()) {
 
 // Vue 3에서 사용하는 i18n 인스턴스를 생성
 const i18n = createI18n({
-  locale: 'ko', // 기본 locale
-  fallbackLocale: 'ko', // locale 설정 실패시 사용할 locale
+  locale: 'kr', // 기본 locale
+  fallbackLocale: 'kr', // locale 설정 실패시 사용할 locale
   messages, // 다국어 메시지
   silentTranslationWarn: true // 메시지 코드가 없을 때 나오는 console 경고 off
 });
