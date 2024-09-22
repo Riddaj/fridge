@@ -24,7 +24,7 @@ public class SecurityConfig {
                     corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
                     corsConfiguration.setAllowCredentials(true);
                     // 로그 출력
-                    System.out.println("###########개새키 되라고 CORS Configuration: ############# :  " + corsConfiguration);
+                    System.out.println("########### CORS Configuration: ############# :  " + corsConfiguration);
                     return corsConfiguration;
                 })
             )

@@ -98,7 +98,7 @@ export default {
 /* 기본 스타일 추가 */
 
 #app{
-  font-family: "Dongle", sans-serif;
+  font-family: "Nanum Gothic Coding", monospace;
   font-size: 15pt;
 }
 

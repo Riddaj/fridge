@@ -1,61 +1,34 @@
 <template>
-  <div class="fridge-page">
-    <div class="ingredient-list">
-      <div v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">
-        <h3>{{ ingredient.name }}</h3>
-        <p>Category: {{ ingredient.category }}</p>
-        <p>Quantity: {{ ingredient.quantity }}</p>
-      </div>
-    </div>
-  </div>
+      <ul>
+      <li v-for="ingredient in ingredients" :key="ingredient.ingredientId">
+        {{ ingredient.name }} - {{ ingredient.bestBefore }}  <!-- 원하는 데이터 표시 -->
+      </li>
+    </ul>
+
 </template>
 
 <script>
 export default {
   data() {
     return {
-      ingredients: [
-        { id: 1, name: 'Chicken Breast', category: 'Meat', quantity: '2 pieces' },
-        { id: 2, name: 'Lettuce', category: 'Vegetable', quantity: '1 head' },
-        { id: 3, name: 'Milk', category: 'Dairy', quantity: '1 liter' },
-        // 추가 재료는 여기서 정의
-      ],
+      ingredients: []
     };
   },
-};
+  mounted() {
+    fetch('/api/fridge')  // 프록시 설정에 따라 경로 수정
+      .then(response => response.json())
+      .then(data => {
+        console.log("Fetched data:", data);  // 응답 데이터 확인
+        this.ingredients = data;  // 데이터 할당
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+}
+
 </script>
 
 <style scoped>
-.fridge-page {
-  padding: 20px;
-  text-align: center;
-  font-family: "Dongle", sans-serif;
-}
 
-.ingredient-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.ingredient-card {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
-  width: 200px;
-  text-align: left;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.ingredient-card h3 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.ingredient-card p {
-  margin: 5px 0;
-  font-size: 14px;
-}
 </style>
