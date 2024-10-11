@@ -28,7 +28,7 @@ public class SecurityConfig {
                     return corsConfiguration;
                 })
             )
-            .csrf().disable() // CSRF 비활성화 (테스트용)
+            //.csrf().disable() // CSRF 비활성화 (테스트용)
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
                 	.requestMatchers("/test.html").permitAll()  // 특정 URL 허용

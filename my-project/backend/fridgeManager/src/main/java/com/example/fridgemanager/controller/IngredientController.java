@@ -16,7 +16,7 @@ import com.example.fridgemanager.service.IngredientService;
 @RestController
 @RequestMapping("/api")
 public class IngredientController {
-	
+
     @Autowired
     private IngredientService ingredientService;
     
