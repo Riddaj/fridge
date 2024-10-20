@@ -9,10 +9,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
-@Data 
+@Getter
+@Setter
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,9 +40,137 @@ public class Ingredient {
 
     @JsonFormat(pattern = "yyyy-MM-dd")  // 날짜 형식 지정
     private LocalDate createdAt;
+	
+    
+    
 	    
-	    
-    @Override
+    public Long getIngredientId() {
+		return ingredientId;
+	}
+
+
+
+
+	public void setIngredientId(Long ingredientId) {
+		this.ingredientId = ingredientId;
+	}
+
+
+
+
+	public String getStorageId() {
+		return storageId;
+	}
+
+
+
+
+	public void setStorageId(String storageId) {
+		this.storageId = storageId;
+	}
+
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+
+
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+
+
+
+
+	public String getBrand() {
+		return brand;
+	}
+
+
+
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
+
+
+	public String getIngredientDescription() {
+		return ingredientDescription;
+	}
+
+
+
+
+	public void setIngredientDescription(String ingredientDescription) {
+		this.ingredientDescription = ingredientDescription;
+	}
+
+
+
+
+	public LocalDate getBestBefore() {
+		return bestBefore;
+	}
+
+
+
+
+	public void setBestBefore(LocalDate bestBefore) {
+		this.bestBefore = bestBefore;
+	}
+
+
+
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+
+
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+
+
+	@Override
     public String toString() {
         return "Ingredient{" +
                 "ingredientId=" + ingredientId +
