@@ -14,9 +14,14 @@ export default {
       ingredients: []
     };
   },
-  mounted() {
-    fetch('/api/fridge')  // 프록시 설정에 따라 경로 수정
-      .then(response => response.json())
+    mounted() {
+    fetch('http://localhost:8081/api/fridge')  // 백엔드의 URL로 직접 요청
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
         console.log("Fetched data:", data);  // 응답 데이터 확인
         this.ingredients = data;  // 데이터 할당
@@ -25,6 +30,7 @@ export default {
         console.error('Error fetching data:', error);
       });
   }
+
 }
 
 </script>
