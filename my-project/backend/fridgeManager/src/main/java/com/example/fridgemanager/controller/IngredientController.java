@@ -26,15 +26,27 @@ public class IngredientController {
     public ResponseEntity<List<Ingredient>> getIngredientsByStorage(@PathVariable String storageId) {
         // storageId에 따라 적절한 로직을 수행
     	List<Ingredient> ingredients = ingredientService.findByStorageId(storageId);
+    	
+    	// ingredients의 각 Ingredient에 대해 categoryName을 출력
+    	
+        for (Ingredient ingredient : ingredients) {
+            if (ingredient.getCategory() != null) {
+                System.out.println("######  Category Name  ######  : " + ingredient.getCategory().getCategoryName());
+            } else {
+                System.out.println("&&&&&&&&&&&Category is null for ingredientId: &&&&&&&&&&&&&&");
+            }
+        }
+        
     	System.out.println("###### storageId ######## : " + storageId);
     	if (ingredients.isEmpty()) {
     		System.out.println("################아니 왜 안되냐고 칵씨################");
             return ResponseEntity.noContent().build(); // 데이터가 없을 경우
         }
-    	System.out.println("################야 나와야 할 거 아니냐고################");
+    	
+    	//System.out.println("################야 나와야 할 거 아니냐고################");
     	System.out.println("############### controller Ingredients: ###############  " + ingredients);  // 응답되는 데이터 확인
-        return ResponseEntity.ok(ingredients); // JSON 형식으로 응답
+        
+    	return ResponseEntity.ok(ingredients); // JSON 형식으로 응답
     }
-    
-
 }
+

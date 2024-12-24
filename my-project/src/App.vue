@@ -58,6 +58,8 @@ export default {
   name: 'App',
   views: {
     FridgeView,
+    FreezerView,
+    PantryView,
 
   },
 

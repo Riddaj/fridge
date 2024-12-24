@@ -1,14 +1,46 @@
 <template>
     <div>
-      <h1>냉동고</h1>
-      <h2>---meats------</h2>
-      <!-- 냉동고 항목을 여기서 보여줌 -->
+      <ul class="category" v-for="ingredient in ingredients" :key="ingredient.ingredientId">
+        {{ ingredient.category.categoryName }} ()
+      </ul>
     </div>
-  </template>
+
+
+      
+
+</template>
   
   <script>
   export default {
-    name: 'FridgeView',
-  };
-  </script>
+    data() {
+      return {
+        ingredients: []
+      };
+    },
+      mounted() {
+      fetch('http://localhost:8081/api/freezer')  // 백엔드의 URL로 직접 요청
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log("Fetched data:", data);  // 응답 데이터 확인
+          this.ingredients = data;  // 데이터 할당
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
   
+  }
+  
+  </script>
+
+<style>
+  .category{
+    font-size: 10px;
+    font-weight: bold;
+  }
+</style>

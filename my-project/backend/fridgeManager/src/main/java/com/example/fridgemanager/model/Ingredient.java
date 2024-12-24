@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +25,13 @@ public class Ingredient {
     private Long ingredientId;
     private String storageId;
 	private String name;
-	private String categoryId;
+	
+	//241224 Category클래스 따로 만들어서 기존 주석 처리
+	//private String categoryId;
+	
+    @ManyToOne
+    @JoinColumn(name = "categoryId")  // 외래 키 컬럼명
+	private Category category;  // Category 객체 추가
 	private String brand;
 	private int quantity;
 	//private LocalDate bestBefore;
@@ -86,16 +94,23 @@ public class Ingredient {
 
 
 
-	public String getCategoryId() {
-		return categoryId;
-	}
+	/*
+	 * public String getCategoryId() { return categoryId; }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * public void setCategoryId(String categoryId) { this.categoryId = categoryId;
+	 * }
+	 */
+	
+    public Category getCategory() {
+        return category;
+    }
 
-
-
-
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
 
 
@@ -176,7 +191,7 @@ public class Ingredient {
                 "ingredientId=" + ingredientId +
                 ", storageId='" + storageId + '\'' +
                 ", name='" + name + '\'' +
-                ", categoryId='" + categoryId + '\'' +
+                ", category='" + category + '\'' +
                 ", brand='" + brand + '\'' +
                 ", quantity=" + quantity +
                 ", bestBefore=" + bestBefore +
