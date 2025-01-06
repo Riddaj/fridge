@@ -1,11 +1,15 @@
 <div align="left">
-<h2>냉장고 마스터🍽</h2>
-1인 가구부터 다가구까지 냉장고 식재료를 알차게 관리할 수 있도록 만든 프로그램<br> 
+<h2>Fridge Master냉장고 마스터🍽</h2>
+A program designed to efficiently manage refrigerator ingredients for single-person households to multi-person households<br>
+1인 가구부터 다가구까지 냉장고 식재료를 알차게 관리할 수 있도록 만든 프로그램
 </div>
 
-# fridge
-fridge control program
-
+# project overview
+ - project name: Fridge Master
+ - Software Development Engine and language: Vue.js(Frontend) | Springboot & Java(Backend)
+ - IDE: VS CODE | Eclipse
+ - project development period
+   
 13.07.2024
 Vue 3 example practice push 
 
