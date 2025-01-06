@@ -1,43 +1,32 @@
 <template>
-    <!-- <ul>
-      <li v-for="ingredient in ingredients" :key="ingredient.ingredientId">
-        {{ ingredient.name }} - {{ ingredient.bestBefore }}  
-         // 원하는 데이터 표시 
-      </li>
-    </ul> -->
-
+    <!-- 0104 카테고리ID 추가 -->
     <div class="app">
+      <ul v-for="(group, categoryId) in groupedIngredients" :key="categoryId" class="category">
+        <li>
+          <strong>{{ group.categoryName }} ({{ group.items.length }})</strong>
+        </li>
+        <hr style="border:solid 0.2px black; margin: 20px auto;">
+        <div class="card">
+        <div class="card-body" v-for="ingredient in group.items" :key="ingredient.ingredientId">
+          <div class="foodName">{{ ingredient.name }}</div>
+          <div class="bestBefore">{{ ingredient.bestBefore }}</div>
+        </div>
+      </div>
+      </ul>
+    </div>
+
+    <!-- <div class="app">
       <ul class="category" v-for="ingredient in ingredients" :key="ingredient.ingredientId">
         {{ ingredient.category.categoryName }} ()
+        <hr style="border:solid 0.2px black; margin: 20px auto;">
         <div class="card">
           <div class="card-body" v-for="ingredient in ingredients" :key="ingredient.ingredientId" >
-            <p class="foodName"> {{ ingredient.name }}</p>
+            <div class="foodName"> {{ ingredient.name }}</div>
+            <div class="bestBefore">{{ ingredient.bestBefore }}</div>
           </div>
         </div>
-        <hr style="border:solid 0.2px black; margin: 20px auto;">
       </ul>
-      
-
-
-      
-      <div>
-
-      </div>
-    <!-- <div class="category" v-for="(category, index) in categories" :key="index">
-      <h2>{{ category.name }} ({{ category.items.length }})</h2>
-      <div class="card-container">
-        <div class="card" v-for="(item, idx) in category.items" :key="idx">
-          <div class="card-header">
-            <span :class="getDateClass(item.expiryDate)">D-{{ calculateDaysLeft(item.expiryDate) }}</span>
-          </div>
-          <div class="card-body">
-            <img :src="item.icon" alt="item.name" class="item-icon" />
-            <p>{{ item.name }}</p>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  </div>
+  </div> -->
   
     
 
@@ -98,5 +87,10 @@ export default {
     justify-content: center; /* 항목을 가로 중앙 정렬 */
     align-items: center; /* 항목을 세로 중앙 정렬 */
     border-radius: 5px; /* 테두리 둥글게 */
+
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: flex-start; /* 왼쪽 정렬 (필요에 따라 center로 변경 가능) */
+    gap: 8px; /* 항목 간 간격 */
   }
 </style>

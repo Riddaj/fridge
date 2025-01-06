@@ -42,7 +42,7 @@
     </nav>
 
     <!-- Main Content -->
-    <router-view></router-view>
+    <router-view></router-view> <!-- 여기에 기본적으로 FridgeView가 표시됩니다 -->
   </div>
 </template>
 
@@ -101,15 +101,26 @@ export default {
 
 #app{
   font-family: "Nanum Gothic Coding", monospace;
-  font-size: 15pt;
+  font-size: 10pt;
+  background-color: #F0F8FF;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* router-view가 나머지 공간을 차지하도록 설정 */
+router-view {
+  flex-grow: 1;
+  overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능 */
 }
 
 .header {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

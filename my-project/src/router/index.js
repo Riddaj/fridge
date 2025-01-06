@@ -8,6 +8,11 @@ import Add from '@/views/AddView.vue';
 
 const routes = [
   {
+    path: '/',  // 기본 경로
+    name: 'Freezer',
+    component: Freezer,  // 기본으로 렌더링할 컴포넌트
+  },
+  {
     path: '/fridge',
     name: 'Fridge',
     component: Fridge
