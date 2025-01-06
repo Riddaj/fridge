@@ -1,4 +1,8 @@
-<img src="https://capsule-render.vercel.app/api?type=wave&color=auto&height=300&section=header&text=capsule%20render&fontSize=90" />
+<div align="center">
+<h2>냉장고 마스터🍽</h2>
+1인 가구부터 다가구까지 냉장고 식재료를 알차게 관리할 수 있도록 만든 프로그램<br> 
+</div>
+
 # fridge
 fridge control program
 
