@@ -36,7 +36,8 @@
 export default {
   data() {
     return {
-      ingredients: []
+      ingredients: [],
+      groupedIngredients: {}  // 그룹화된 데이터를 저장할 변수
     };
   },
     mounted() {
@@ -49,11 +50,43 @@ export default {
       })
       .then(data => {
         console.log("Fetched data:", data);  // 응답 데이터 확인
-        this.ingredients = data;  // 데이터 할당
+        //원래가 이부분이고 아래가 250112에 수정한 사항
+        //this.ingredients = data;  // 데이터 할당
+
+         // 데이터를 카테고리별로 그룹화하여 groupedIngredients에 할당
+         this.groupedIngredients = this.groupIngredientsByCategory(data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
+  },
+  methods: {
+    // 카테고리별로 그룹화하는 메서드
+    groupIngredientsByCategory(data) {
+      const grouped = {};
+
+      // 데이터 순회하며 카테고리별로 그룹화
+      data.forEach(item => {
+        const categoryId = item.category.categoryId;
+        
+        // 해당 카테고리 아이디가 없다면 새로 추가
+        if (!grouped[categoryId]) {
+          grouped[categoryId] = {
+            categoryName: item.category.categoryName,
+            items: []
+          };
+        }
+
+        // 각 항목을 해당 카테고리에 추가
+        grouped[categoryId].items.push({
+          ingredientId: item.ingredientId,
+          name: item.name,
+          bestBefore: item.bestBefore
+        });
+      });
+
+      return grouped;
+    }
   }
 
 }
@@ -61,11 +94,20 @@ export default {
 </script>
 
 <style scoped>
+   .app{
+    font-family: "Nanum Gothic Coding", monospace;
+    font-size: 10pt;
+    background-color: #F0F8FF;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
   .category{
     font-size: 10px;
     font-weight: bold;
   }
-  
+
   .card{
     display: flex; /* 가로로 쌓이도록 설정 */
     flex-wrap: wrap;

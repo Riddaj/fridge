@@ -1,5 +1,20 @@
 <template>
-    <div class="app">
+      <!-- 0104 카테고리ID 추가 -->
+      <div class="app">
+      <ul v-for="(group, categoryId) in groupedIngredients" :key="categoryId" class="category">
+        <li>
+          <strong>{{ group.categoryName }} ({{ group.items.length }})</strong>
+        </li>
+        <hr style="border:solid 0.2px black; margin: 20px auto;">
+        <div class="card">
+        <div class="card-body" v-for="ingredient in group.items" :key="ingredient.ingredientId">
+          <div class="foodName">{{ ingredient.name }}</div>
+          <div class="bestBefore">{{ ingredient.bestBefore }}</div>
+        </div>
+      </div>
+      </ul>
+    </div>
+    <!-- <div class="app">
       <ul class="category" v-for="ingredient in ingredients" :key="ingredient.ingredientId">
         {{ ingredient.category.categoryName }} ()
         <hr style="border:solid 0.2px black; margin: 20px auto;">
@@ -9,14 +24,15 @@
           </div>
         </div>
       </ul>
-  </div>
+  </div> -->
 </template>
   
   <script>
   export default {
     data() {
       return {
-        ingredients: []
+        ingredients: [],
+        groupedIngredients: {}  // 그룹화된 데이터를 저장할 변수
       };
     },
       mounted() {
@@ -30,13 +46,43 @@
         .then(data => {
           console.log("Fetched data:", data);  // 응답 데이터 확인
           this.ingredients = data;  // 데이터 할당
+
+          // 데이터를 카테고리별로 그룹화하여 groupedIngredients에 할당
+         this.groupedIngredients = this.groupIngredientsByCategory(data);
         })
         .catch(error => {
           console.error('Error fetching data:', error);
         });
+    }, methods: {
+    // 카테고리별로 그룹화하는 메서드
+    groupIngredientsByCategory(data) {
+      const grouped = {};
+
+      // 데이터 순회하며 카테고리별로 그룹화
+      data.forEach(item => {
+        const categoryId = item.category.categoryId;
+        
+        // 해당 카테고리 아이디가 없다면 새로 추가
+        if (!grouped[categoryId]) {
+          grouped[categoryId] = {
+            categoryName: item.category.categoryName,
+            items: []
+          };
+        }
+
+        // 각 항목을 해당 카테고리에 추가
+        grouped[categoryId].items.push({
+          ingredientId: item.ingredientId,
+          name: item.name,
+          bestBefore: item.bestBefore
+        });
+      });
+
+      return grouped;
     }
-  
   }
+  
+  };
   
   </script>
 
@@ -76,5 +122,10 @@
     justify-content: center; /* 항목을 가로 중앙 정렬 */
     align-items: center; /* 항목을 세로 중앙 정렬 */
     border-radius: 5px; /* 테두리 둥글게 */
+
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: flex-start; /* 왼쪽 정렬 (필요에 따라 center로 변경 가능) */
+    gap: 8px; /* 항목 간 간격 */
   }
 </style>
