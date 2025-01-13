@@ -3,12 +3,16 @@ package com.example.fridgemanager.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fridgemanager.model.Ingredient;
@@ -47,6 +51,17 @@ public class IngredientController {
     	System.out.println("############### controller Ingredients: ###############  " + ingredients);  // 응답되는 데이터 확인
         
     	return ResponseEntity.ok(ingredients); // JSON 형식으로 응답
+    }
+    
+    @PostMapping("/addIngredient")
+    public ResponseEntity<String> addIngredient(@RequestBody Ingredient ingredient){
+    	try {
+    		ingredientService.addIngredient(ingredient);  // 서비스 계층에서 데이터 처리
+            return ResponseEntity.ok("%%%%%%%%% Ingredient added successfully! %%%%%%%%%");
+		} catch (Exception e) {
+			// TODO: handle exception
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("%%%%%%% Failed to add ingredient. %%%%%%%");
+		}
     }
 }
 

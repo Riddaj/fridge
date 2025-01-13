@@ -4,11 +4,6 @@
     <header class="header">
       <img src="@/assets/fridge.png" alt="Logo" class="logo" />
       <div>
-        <a @click="goToAdd">
-          <img src="@/assets/add.png" alt="add" class="add"/>
-        </a>
-      </div>
-      <div>
         <a @click.prevent="goToCart">          
           <img src="@/assets/cart.png" alt="cart" class="cart"/>
         </a>
@@ -43,6 +38,14 @@
 
     <!-- Main Content -->
     <router-view></router-view> <!-- 여기에 기본적으로 FridgeView가 표시됩니다 -->
+      <!--식재료 추가 팝업 버튼-->
+      <div>
+          <a @click="openPopup" class="popupAdd">
+            <img src="@/assets/add.png" alt="add" class="add"/>재료 추가하기
+          </a>
+              <!-- 팝업 컴포넌트 -->
+        <PopupAdd :isVisible="isPopupVisible" @close="closePopup" @submit="handleSubmit" />
+      </div>
   </div>
 </template>
 
@@ -51,7 +54,7 @@ import { ref, computed } from 'vue';
 import FridgeView from '@/views/FridgeView.vue';
 import FreezerView from './views/FreezerView.vue';
 import PantryView from './views/PantryView.vue';
-import AddView from '@/views/AddView.vue';
+import PopupAdd from '@/components/PopupAdd.vue';
 import { useI18n } from 'vue-i18n'
 
 export default {
@@ -61,16 +64,46 @@ export default {
     FreezerView,
     PantryView,
 
+  }, components: {
+    PopupAdd,
+  },
+  data() {
+    return {
+      isPopupVisible: false,
+    };
   },
 
   methods: {
-    goToCart() {
+      goToCart() {
       this.$router.push('/cart'); // '/cart' 경로로 페이지 전환
       },
-
-      goToAdd() {
-        this.$router.push('/add');
-      }
+      //재료 추가 팝업
+      openPopup() {
+        this.isPopupVisible = true;
+      },
+      closePopup() {
+        this.isPopupVisible = false;
+      },
+      handleSubmit(newIngredient) {
+        // DB로 정보 전송
+        console.log("보여라보여라");
+        console.log("Submitted data:", newIngredient);
+        fetch('http://localhost:8081/api/addIngredient', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newIngredient),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Ingredient added:', data);
+          })
+          .catch(error => {
+            console.error('Error adding ingredient:', error);
+          });
+        this.closePopup(); // 팝업 닫기
+      },
     },
 
     setup() {
@@ -92,7 +125,6 @@ export default {
 
 
 }
-
 
 </script>
 
@@ -123,10 +155,31 @@ router-view {
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .add{
   height: 25px;
+  cursor: pointer;
 }
+
+.popupAdd{
+  position: fixed; /* 화면에 고정 */
+  bottom: 20px;    /* 화면 아래에서 20px */
+  right: 20px;     /* 화면 오른쪽에서 20px */
+  padding: 10px 20px;         /* 버튼에 여백을 추가 */
+  border-radius: 50px;        /* 버튼을 둥글게 */
+  color: white;               /* 텍스트 색상 */
+  background-color: skyblue;
+  text-decoration: none;      /* 링크 스타일 제거 */
+  display: flex;
+  align-items: center;        /* 아이콘과 텍스트가 수평 정렬되도록 */
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
+
+.popupAdd:hover{
+  background-color: #ff784e; /* 마우스를 올렸을 때 배경 색상 */
+}
+
+
 .cart{
   height: 25px;
 }

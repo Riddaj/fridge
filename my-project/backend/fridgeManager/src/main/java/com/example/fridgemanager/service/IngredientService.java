@@ -17,6 +17,12 @@ public class IngredientService {
     @Autowired
     private CategoryRepository categoryRepository;  // CategoryRepository 주입
     
+    //재료 insert
+    public void addIngredient(Ingredient ingredient) {
+    	System.out.println("%%%%%%%%%%%%%%%%% -------- 보이는지 확인 --------%%%%%%%%%%%%%%%%%%");
+    	ingredientRepository.save(ingredient);
+    }
+    
     public List<Ingredient> findByStorageId(String storageId) {
     	List<Ingredient> ingredients = ingredientRepository.findByStorageId(storageId);
 

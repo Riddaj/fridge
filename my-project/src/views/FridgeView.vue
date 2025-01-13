@@ -1,6 +1,7 @@
 <template>
     <!-- 0104 카테고리ID 추가 -->
     <div class="app">
+
       <ul v-for="(group, categoryId) in groupedIngredients" :key="categoryId" class="category">
         <li>
           <strong>{{ group.categoryName }} ({{ group.items.length }})</strong>
@@ -14,6 +15,7 @@
       </div>
       </ul>
     </div>
+
 
     <!-- <div class="app">
       <ul class="category" v-for="ingredient in ingredients" :key="ingredient.ingredientId">
@@ -107,7 +109,6 @@ export default {
     font-size: 10px;
     font-weight: bold;
   }
-
   .card{
     display: flex; /* 가로로 쌓이도록 설정 */
     flex-wrap: wrap;
