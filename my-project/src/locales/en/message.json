@@ -2,7 +2,12 @@
     "fridge": "fridge",
     "freezer": "freezer",
     "shoppingCart": "shopping cart",
-    "pantry": "pantry"
+    "pantry": "pantry",
+    "Add Ingredients": "Add Ingredients",
+    "Best Before": "Best Before",
+    "brand":"brand",
+    "cart":"cart"
+
 }
 
 

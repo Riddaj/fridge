@@ -3,20 +3,18 @@
     <!-- Header -->
     <header class="header">
       <img src="@/assets/fridge.png" alt="Logo" class="logo" />
-      <div>
-        <a @click.prevent="goToCart">          
-          <img src="@/assets/cart.png" alt="cart" class="cart"/>
-        </a>
-      </div>
       <div class="icons">
         <!-- 다국어설정 -->
         <!-- <p>{{ $t('message.fridge') }}</p> -->
         <select v-model="selectedLocale" v-on:change="changeLocale">
-            <option value="" disabled>선택하세요</option>
-            <option value="kr">한국어</option>
-            <option value="en">영어</option>
+          <option value="kr" selected>한국어</option>
+          <option value="en">ENGLISH</option>
         </select>
-        <!-- shopping cart list-->
+        <div class="member">
+          <button class="button" type="login">로그인</button>
+          <button class="button" type="singin">회원가입</button>
+        </div>
+
       </div>
     </header>
 
@@ -33,6 +31,15 @@
       <router-link to="/pantry" class="tab">
         <img src="@/assets/pantry.png" alt="pantry" class="menu"/>
         <p>{{ $t('message.pantry') }}</p>
+      </router-link>
+      <!-- <div class="goCart">
+          <a @click.prevent="goToCart">          
+            <img src="@/assets/cart.png" alt="cart" class="cart"/>
+          </a>
+      </div>  -->
+      <router-link to="/cart" class="tab">
+        <img src="@/assets/cart.png" alt="cart" class="menu"/>
+        <p>{{ $t('message.cart') }}</p>
       </router-link>
     </nav>
 
@@ -195,6 +202,15 @@ router-view {
 .menu {
   height: 40px;
 }
+
+.goCart{
+  margin-left: 30px;
+}
+
+button{
+  border: none;
+}
+
 .icons i {
   margin-left: 20px;
   font-size: 1.5em;
